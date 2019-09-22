@@ -123,9 +123,9 @@ class ACGAN():
         (X_train, y_train), (_, _) = mnist.load_data()
 
         # Configure inputs
-        X_train = (X_train.astype(np.float32) - 127.5) / 127.5
+        X_train = (X_train.astype(np.float32) - 127.5) / 127.5 #归一化
         X_train = np.expand_dims(X_train, axis=3)
-        y_train = y_train.reshape(-1, 1)
+        y_train = y_train.reshape(-1, 1)  #变成一列的数组,具体行数不管
 
         # Adversarial ground truths
         valid = np.ones((batch_size, 1))
@@ -138,7 +138,7 @@ class ACGAN():
             # ---------------------
 
             # Select a random batch of images
-            idx = np.random.randint(0, X_train.shape[0], batch_size)
+            idx = np.random.randint(0, X_train.shape[0], batch_size)  #范围从0到x_train的最大值,长度为batchsize的数组,作为索引
             imgs = X_train[idx]
 
             # Sample noise as generator input
@@ -211,4 +211,6 @@ class ACGAN():
 
 if __name__ == '__main__':
     acgan = ACGAN()
-    acgan.train(epochs=14000, batch_size=32, sample_interval=200)
+    acgan.train(epochs=140000, batch_size=32, sample_interval=200)
+    # acgan.generator.predict()
+    # acgan.discriminator.predict()
